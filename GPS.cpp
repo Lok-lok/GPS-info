@@ -1,8 +1,6 @@
 // Author: Lok
 
 #include "GPS.h"
-#include <Arduino.h>
-#include <SoftwareSerial.h>
 
 // The period of sending information is one second.
 #define SAFETY_TIME_IN_US 1000000
