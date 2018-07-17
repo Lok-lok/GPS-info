@@ -53,7 +53,7 @@ GPS::GPS(){
     Serial.begin(9600);
 }
 
-GPS::GPS(byte TXD, byte RXD){
+GPS::GPS(uint8_t TXD, uint8_t RXD){
     is_software_serial = true;
     TX = TXD;
     RX = RXD;
@@ -146,13 +146,13 @@ float GPS::getLatitudeOrLongitude(){
     return parseToFloat(ret, count);
 }
 
-byte GPS::getTXDPin(){
+uint8_t GPS::getTXDPin(){
     if (is_software_serial)
         return TX;
     return -1;
 }
 
-byte GPS::getRXDPin(){
+uint8_t GPS::getRXDPin(){
     if (is_software_serial)
         return RX;
     return -1;
@@ -171,11 +171,11 @@ TimeAndDate GPS::getTime(){
             if(time_chars[5] < 0) break;
             if(!areDigits(time_chars)) break;
             char temp1[] = {time_chars[0], time_chars[1]};
-            time.hour = (byte)parseToInt(temp1);
+            time.hour = (uint8_t)parseToInt(temp1);
             char temp2[] = {time_chars[2], time_chars[3]};
-            time.minute = (byte)parseToInt(temp2);
+            time.minute = (uint8_t)parseToInt(temp2);
             char temp3[] = {time_chars[4], time_chars[5]};
-            time.second = (byte)parseToInt(temp3);
+            time.second = (uint8_t)parseToInt(temp3);
             break;
         }
     }
@@ -195,11 +195,11 @@ TimeAndDate GPS::getDate(){
             if(date_chars[5] < 0) break;
             if(!areDigits(date_chars)) break;
             char temp1[] = {date_chars[0], date_chars[1]};
-            date.day = (byte)parseToInt(temp1);
+            date.day = (uint8_t)parseToInt(temp1);
             char temp2[] = {date_chars[2], date_chars[3]};
-            date.month = (byte)parseToInt(temp2);
+            date.month = (uint8_t)parseToInt(temp2);
             char temp3[] = {date_chars[4], date_chars[5]};
-            date.year = (byte)parseToInt(temp3);
+            date.year = (uint8_t)parseToInt(temp3);
             break;
         }
     }
@@ -219,21 +219,21 @@ TimeAndDate GPS::getTimeAndDate(){
             if(time_chars[5] < 0) break;
             if(!areDigits(time_chars)) break;
             char temp1[] = {time_chars[0], time_chars[1]};
-            time_and_date.hour = (byte)parseToInt(temp1);
+            time_and_date.hour = (uint8_t)parseToInt(temp1);
             char temp2[] = {time_chars[2], time_chars[3]};
-            time_and_date.minute = (byte)parseToInt(temp2);
+            time_and_date.minute = (uint8_t)parseToInt(temp2);
             char temp3[] = {time_chars[4], time_chars[5]};
-            time_and_date.second = (byte)parseToInt(temp3);
+            time_and_date.second = (uint8_t)parseToInt(temp3);
             if(!skipCommas(8)) break;
             date_chars = getSixChars();
             if(date_chars[5] < 0) break;
             if(!areDigits(date_chars)) break;
             char temp4[] = {date_chars[0], date_chars[1]};
-            time_and_date.day = (byte)parseToInt(temp4);
+            time_and_date.day = (uint8_t)parseToInt(temp4);
             char temp5[] = {date_chars[2], date_chars[3]};
-            time_and_date.month = (byte)parseToInt(temp5);
+            time_and_date.month = (uint8_t)parseToInt(temp5);
             char temp6[] = {date_chars[4], date_chars[5]};
-            time_and_date.year = (byte)parseToInt(temp6);
+            time_and_date.year = (uint8_t)parseToInt(temp6);
             break;
         }
     }

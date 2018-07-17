@@ -15,12 +15,12 @@ enum Hemisphere{
 };
 
 struct TimeAndDate{
-  byte hour;
-  byte minute;
-  byte second;
-  byte day;
-  byte month;
-  byte year;
+  uint8_t hour;
+  uint8_t minute;
+  uint8_t second;
+  uint8_t day;
+  uint8_t month;
+  uint8_t year;
 };
 
 struct Location{
@@ -32,8 +32,8 @@ struct Location{
 
 class GPS{
     private:
-        byte TX;
-        byte RX;
+        uint8_t TX;
+        uint8_t RX;
         bool is_software_serial;
         SoftwareSerial *SWSerial;
         bool waitForNextCharAvailable();
@@ -45,10 +45,10 @@ class GPS{
         
     public:
         GPS();
-        GPS(byte TXD, byte RXD);
+        GPS(uint8_t TXD, uint8_t RXD);
         ~GPS();
-        byte getTXDPin();
-        byte getRXDPin();
+        uint8_t getTXDPin();
+        uint8_t getRXDPin();
         TimeAndDate getTime();
         TimeAndDate getDate();
         TimeAndDate getTimeAndDate();
