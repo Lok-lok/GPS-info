@@ -47,8 +47,8 @@ float parseToFloat(char chars[], int count){
 
 GPS::GPS(){
     is_software_serial = false;
-    TX = -1;
-    RX = -1;
+    TX = UINT8_MAX;
+    RX = UINT8_MAX;
     SWSerial = NULL;
     Serial.begin(9600);
 }
@@ -149,17 +149,17 @@ float GPS::getLatitudeOrLongitude(){
 uint8_t GPS::getTXDPin(){
     if (is_software_serial)
         return TX;
-    return -1;
+    return UINT8_MAX;
 }
 
 uint8_t GPS::getRXDPin(){
     if (is_software_serial)
         return RX;
-    return -1;
+    return UINT8_MAX;
 }
 
 TimeAndDate GPS::getTime(){
-    TimeAndDate time = {255,255,255,255,255,255};
+    TimeAndDate time = {UINT8_MAX,UINT8_MAX,UINT8_MAX,UINT8_MAX,UINT8_MAX,UINT8_MAX};
     char c;
     while (waitForNextCharAvailable()){
         c = getNextChar();
@@ -183,7 +183,7 @@ TimeAndDate GPS::getTime(){
 }
 
 TimeAndDate GPS::getDate(){
-    TimeAndDate date = {255,255,255,255,255,255};
+    TimeAndDate date = {UINT8_MAX,UINT8_MAX,UINT8_MAX,UINT8_MAX,UINT8_MAX,UINT8_MAX};
     char c;
     while (waitForNextCharAvailable()){
         c = getNextChar();
@@ -207,7 +207,7 @@ TimeAndDate GPS::getDate(){
 }
 
 TimeAndDate GPS::getTimeAndDate(){
-    TimeAndDate time_and_date = {255,255,255,255,255,255};
+    TimeAndDate time_and_date = {UINT8_MAX,UINT8_MAX,UINT8_MAX,UINT8_MAX,UINT8_MAX,UINT8_MAX};
     char c;
     while (waitForNextCharAvailable()){
         c = getNextChar();
