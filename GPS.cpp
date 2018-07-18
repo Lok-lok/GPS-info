@@ -164,7 +164,6 @@ TimeAndDate GPS::getTime(){
     while (waitForNextCharAvailable()){
         c = getNextChar();
         if(c == '$' && correctPrefix(GPRMC)){
-            int i;
             char* time_chars;
             if(!skipCommas(1)) break;
             time_chars = getSixChars();
@@ -188,7 +187,6 @@ TimeAndDate GPS::getDate(){
     while (waitForNextCharAvailable()){
         c = getNextChar();
         if(c == '$' && correctPrefix(GPRMC)){
-            int i;
             char* date_chars;
             if(!skipCommas(9)) break;
             date_chars = getSixChars();
@@ -212,7 +210,6 @@ TimeAndDate GPS::getTimeAndDate(){
     while (waitForNextCharAvailable()){
         c = getNextChar();
         if(c == '$' && correctPrefix(GPRMC)){
-            int i;
             char* time_chars, *date_chars;
             if(!skipCommas(1)) break;
             time_chars = getSixChars();
@@ -246,7 +243,6 @@ Location GPS::getLocation(){
     while (waitForNextCharAvailable()){
         c = getNextChar();
         if(c == '$' && correctPrefix(GPRMC)){
-            int i;
             bool available, is_north, is_west;
             char n_s, w_e;
             if(!skipCommas(2)) break;
