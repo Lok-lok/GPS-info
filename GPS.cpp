@@ -143,6 +143,7 @@ float GPS::getLatitudeOrLongitude(){
         ret[i] = chars[i];
     }
     if(!areDigits(ret)) return -1;
+    free(ret);
     return parseToFloat(ret, count);
 }
 
