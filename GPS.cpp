@@ -110,11 +110,11 @@ bool GPS::skipCommas(int number){
     return count == number;
 }
 
-char* GPS::getSixChars(){
-    char ret[] = {-1, -1, -1, -1, -1, -1};
+SixChars GPS::getSixChars(){
+    SixChars ret = {{-1, -1, -1, -1, -1, -1}};
     int i;
     for(i = 0; i < 6 && waitForNextCharAvailable(); i++){
-        ret[i] = getNextChar();
+        ret.six_chars[i] = getNextChar();
     }
     return ret;
 }
@@ -164,9 +164,12 @@ TimeAndDate GPS::getTime(){
     while (waitForNextCharAvailable()){
         c = getNextChar();
         if(c == '$' && correctPrefix(GPRMC)){
-            char* time_chars;
+            int i;
+            char time_chars[6];
             if(!skipCommas(1)) break;
-            time_chars = getSixChars();
+            SixChars temp = getSixChars();
+            for (i = 0; i < sizeof(time_chars) / sizeof(char); i++) 
+                time_chars[i] = temp.six_chars[i];
             if(time_chars[5] < 0) break;
             if(!areDigits(time_chars)) break;
             char temp1[] = {time_chars[0], time_chars[1]};
@@ -187,9 +190,12 @@ TimeAndDate GPS::getDate(){
     while (waitForNextCharAvailable()){
         c = getNextChar();
         if(c == '$' && correctPrefix(GPRMC)){
-            char* date_chars;
+            int i;
+            char date_chars[6];
             if(!skipCommas(9)) break;
-            date_chars = getSixChars();
+            SixChars temp = getSixChars();
+            for (i = 0; i < sizeof(date_chars) / sizeof(char); i++) 
+                date_chars[i] = temp.six_chars[i];
             if(date_chars[5] < 0) break;
             if(!areDigits(date_chars)) break;
             char temp1[] = {date_chars[0], date_chars[1]};
@@ -210,9 +216,12 @@ TimeAndDate GPS::getTimeAndDate(){
     while (waitForNextCharAvailable()){
         c = getNextChar();
         if(c == '$' && correctPrefix(GPRMC)){
-            char* time_chars, *date_chars;
+            int i;
+            char time_chars[6], date_chars[6];
             if(!skipCommas(1)) break;
-            time_chars = getSixChars();
+            SixChars temp = getSixChars();
+            for (i = 0; i < sizeof(time_chars) / sizeof(char); i++) 
+                time_chars[i] = temp.six_chars[i];
             if(time_chars[5] < 0) break;
             if(!areDigits(time_chars)) break;
             char temp1[] = {time_chars[0], time_chars[1]};
@@ -222,7 +231,9 @@ TimeAndDate GPS::getTimeAndDate(){
             char temp3[] = {time_chars[4], time_chars[5]};
             time_and_date.second = (uint8_t)parseToInt(temp3);
             if(!skipCommas(8)) break;
-            date_chars = getSixChars();
+            temp = getSixChars();
+            for (i = 0; i < sizeof(date_chars) / sizeof(char); i++) 
+                date_chars[i] = temp.six_chars[i];
             if(date_chars[5] < 0) break;
             if(!areDigits(date_chars)) break;
             char temp4[] = {date_chars[0], date_chars[1]};

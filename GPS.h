@@ -30,6 +30,10 @@ struct Location{
     float longitude;
 };
 
+struct SixChars{ // a wrap of char array of six
+  char six_chars[6];
+};
+
 class GPS{
     private:
         uint8_t TX;
@@ -40,7 +44,7 @@ class GPS{
         char getNextChar();
         bool correctPrefix(char prefix[]);
         bool skipCommas(int number);
-        char* getSixChars();
+        SixChars getSixChars();
         float getLatitudeOrLongitude();
         
     public:
